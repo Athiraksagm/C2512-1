@@ -1,0 +1,614 @@
+
+@font-face {
+  font-family: agustina;
+  src: url('/assets/fonts/Agustina.woff');
+}
+
+@font-face {
+  font-family: 'Dancing Script';
+  src: url('/assets/fonts/DancingScript-Medium.ttf') format('truetype');
+}
+* {
+  margin: 0;
+  box-sizing: border-box;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+body {
+  background-color: rgba(0, 0, 0, 0.918) !important;
+  overflow-x: hidden;
+  
+}
+.body_container{
+  background-image: url(/assets/images/grid.png)!important;
+  background-repeat: repeat !important;
+  overflow-x: hidden !important;
+  
+}
+.hidden-until-loaded {
+  display: none;
+}
+
+
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+
+.navbar-brand span{
+  color: white;
+}
+.logo-name{
+  font-family: 'Agustina', 'Rubik', sans-serif;
+  font-size: 1.2rem;
+}
+ 
+.navbar-nav .nav-link {
+  color: white !important;
+  padding: 10px 20px;
+  font-size: 22px;
+  margin-right: 100px;
+}
+
+.navbar-nav .nav-link:hover {
+  filter: drop-shadow(1px 1px 20px rgb(25, 76, 205));
+}
+
+.navbar-toggler-white {
+  border-color: rgba(255, 252, 252, 0.5);
+}
+
+.navbar-toggler-white .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28255, 255, 255, 1%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+.sec1 .social-icons a i:hover {
+  box-shadow: rgba(0, 115, 255, 0.816) 1px 10px 10px;
+}
+
+.sec1 button {
+  font-size: larger;
+}
+
+.sec1 button:hover {
+  box-shadow: 1px 1px 20px rgb(50, 66, 157);
+}
+
+.sec1_img {
+  margin-top: 20px;
+  padding-top: 50px;
+  padding-bottom: 0px;
+}
+
+.sec1_img img {
+  filter: drop-shadow(0 0 10px rgba(73, 97, 235, 0.549));
+  transition: filter 0.3s ease-in-out;
+}
+
+.vh-100 {
+  min-height: 100vh;
+}
+
+@media (min-width: 992px) {
+  .px-md-5 {
+    padding-left: 20px;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .img-fluid {
+    max-width: 200px;
+    height: auto;
+    border-radius: 50%;
+    border: 8px solid #fff;
+  }
+
+  .sec1_img img {
+    filter: none;
+  }
+}
+
+/* Adjusted Section 2 and Section 3 */
+.sec2 {
+  padding-top: 10px !important;
+  padding-bottom: 5px !important;
+}
+
+.sec2 .container .card {
+  border: 1px solid violet;
+  background: #151515 !important;
+  color: white;
+}
+
+.interest_heading {
+  font-family: Dancing Script;
+  margin-top: 2px;
+  color: #fff;
+  height: auto;
+  font-weight: bolder;
+  font-size: xx-large; 
+}
+
+@media (max-width: 768px) {
+  .sec2 .card {
+    width: 100%; /* Full-width cards on smaller screens */
+    margin-bottom: 20px; /* Add spacing between stacked cards */
+  }
+  
+  .interest_heading {
+    font-size: larger; /* Adjust font size for smaller screens */
+    margin-bottom: 20px; /* Add spacing below the heading */
+  }
+}
+
+
+
+/*About*/
+
+.sec3 {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-top: 20px;
+}
+
+.about_heading {
+  font-family: 'Poppins', sans-serif; /* Modern font */
+  margin-bottom: 20px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 2.5rem; /* Large heading size */
+}
+
+.sec3 img {
+  max-width: 60%; /* Reduce the image width on large screens */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 10px; /* Add subtle rounded corners */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Add shadow for better visual appeal */
+}
+
+.sec3 .about_text {
+  background: rgba(0, 0, 0, 0.6); /* Semi-transparent black background for better readability */
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.sec3 .about_text p {
+  font-family: 'Roboto', sans-serif; /* Readable font for text */
+  font-size: 1.2rem; /* Larger text for better readability */
+  font-weight: 400;
+  color: #f0f0f0; /* Light gray color for contrast */
+  text-align: justify;
+  line-height: 1.6; /* Improve line spacing */
+}
+
+@media (max-width: 768px) {
+  .sec3 .row {
+    flex-direction: column; /* Stack the columns vertically */
+    align-items: center; /* Center content */
+  }
+
+  .about_heading {
+    font-size: 2rem; /* Slightly smaller heading on small screens */
+  }
+
+  .sec3 img {
+    max-width: 90%; /* Make image smaller for small screens */
+    margin-bottom: 20px;
+  }
+
+  .sec3 .about_text {
+    text-align: center; /* Center-align text */
+    font-size: 1rem; /* Decrease font size for small screens */
+    padding: 10px; /* Adjust padding */
+  }
+}
+
+@media (max-width: 576px) {
+  .about_heading {
+    font-size: 1.8rem; /* Smaller font for very small screens */
+  }
+
+  .sec3 img {
+    max-width: 100%; /* Take full width on extra small screens */
+  }
+
+  .sec3 .about_text p {
+    font-size: 0.9rem; /* Smaller text size for readability */
+  }
+}
+
+
+/*Skill*/
+
+.sec4 .skill-img{
+  height: auto !important; 
+  overflow: visible !important;
+}
+
+
+.sec4_heading{
+  font-family: Dancing Script;
+}
+.sec4 .skills-container{
+  height: auto !important; 
+  overflow: visible !important;
+}
+
+/*Tools */
+
+.sec5 {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.sec5 .projects_heading {
+  font-family: Dancing Script;
+  color: #fff;
+  font-size: 2rem;
+  margin-bottom: 30px;
+  font-weight: bold;
+}
+.sec5 .tool-container{
+  height: auto !important; 
+  overflow: visible !important;
+}
+
+.sec5 .project-card {
+  width: 280px; /* Fixed width */
+  height: 380px; /* Fixed height */
+  background-size: cover; /* Ensure the image covers the card */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Prevent repetition */
+  color: white;
+  border: 1px solid violet;
+  border-radius: 8px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* Align text at the bottom */
+  transition: transform 0.3s ease;
+}
+
+.sec5 .project-card:hover {
+  transform: scale(1.05); /* Slight scaling effect on hover */
+}
+
+.sec5 .content-box {
+  background: rgba(0, 0, 0, 0.7); /* Semi-transparent background for text */
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.sec5 .card-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.sec5 .card-content {
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+  text-align: justify;
+}
+
+.sec5 .see-more {
+  color: violet;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .sec5 .project-card {
+    width: 90%; /* Adjust width for smaller screens */
+    max-width: 280px;
+    height: auto; /* Allow height to adjust dynamically */
+  }
+
+  .sec5 .projects_heading {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .sec5 .card-title {
+    font-size: 1.2rem;
+  }
+
+  .sec5 .card-content {
+    font-size: 0.8rem;
+  }
+
+  .sec5 .project-card {
+    height: auto; /* Adjust height dynamically for very small screens */
+  }
+}
+
+
+
+
+/*CONTACT*/
+
+#contact{
+  color: #fff !important;
+  padding: 40px 0;
+  min-height: 70vh;
+  
+  
+  background-size: contain;
+}
+#contact .section-heading{
+  font-family: Dancing Script;
+}
+
+.contact-form{
+  padding: 35px;
+  border-radius: 15px;
+  background-color: transparent;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 0 1px 0 rgba(144, 81, 227, .5), 0 0 0.5px 0.5px rgba(141, 53, 229, .336);
+  -webkit-box-shadow: 0 0 1px 0 rgba(144, 81, 227, .5), 0 0 0.5px 0.5px rgba(141, 53, 229, .336);
+}
+
+
+.contact-form .form-control{
+  padding: 0.775rem 1.05rem;
+  background-color: transparent;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.contact-form .form-control:focus{
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  border-color: #850dd5;
+}
+
+.contact-form .btn{
+  color: aliceblue;
+  background-color: #850dd5;
+}
+
+
+
+
+#skills{
+  padding: 40px 0px;
+  min-height: 90vh;
+  color: #fff;
+}
+
+.skill{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: transparent;
+  padding: 18px 0px;
+  border-radius: 25px;
+  backdrop-filter: blur(300px);
+  -webkit-backdrop-filter: blur(300px);
+  box-shadow: 0 0 1px 0 rgba(144,81,227,.5), 0 0 0.5px 0.5px rgba(141,53,229,.336);
+  -webkit-box-shadow: 0 0 1px 0 rgba(144,81,227,.5), 0 0 0.5px 0.5px rgba(141,53,229,.336);
+
+  transform-style: preserve-3d;
+  
+  
+  transition: all 0.5s ease-in-out;
+}
+.skill:hover{
+  background-position: 80% 20%;
+  transform: rotate3d(0.5, 1, 0, 30deg);
+  box-shadow: rgba(255, 0, 238, 0.925) 0px 20px 50px -25px;
+}
+
+.skill-image{
+  width: 71px;
+  padding: 8px;
+  height: 71px;
+}
+
+.skill-name{
+  letter-spacing: 2px;
+  font-size: 17px;
+  padding-top: 5px;
+  margin: 0;
+}
+
+
+#tools{
+  padding: 40px 0px;
+  min-height: 80vh;
+  color: #fff;
+}
+
+.tool{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: transparent;
+  padding: 18px 0px;
+  border-radius: 25px;
+  backdrop-filter: blur(300px);
+  -webkit-backdrop-filter: blur(300px);
+  box-shadow: 0 0 1px 0 rgba(144,81,227,.5), 0 0 0.5px 0.5px rgba(141,53,229,.336);
+  -webkit-box-shadow: 0 0 1px 0 rgba(144,81,227,.5), 0 0 0.5px 0.5px rgba(141,53,229,.336);
+
+  transform-style: preserve-3d;
+  
+  
+  transition: all 0.5s ease-in-out;
+}
+.tool:hover{
+  background-position: 80% 20%;
+  transform: rotate3d(0.5, 1, 0, 30deg);
+  box-shadow: rgba(255, 0, 238, 0.925) 0px 20px 50px -25px;
+}
+
+.tool-image{
+  width: 71px;
+  padding: 8px;
+  height: 71px;
+}
+
+.tool-name{
+  letter-spacing: 2px;
+  font-size: 17px;
+  padding-top: 5px;
+  margin: 0;
+}
+#tools .tool-img{
+  height: auto;
+  overflow: visible;
+}
+
+
+
+.sec5 {
+  padding: 40px 0px;
+  min-height: 90vh;
+  color: #fff;
+}
+
+.projects_heading {
+  font-family: 'Dancing Script', cursive;
+  margin-top: 2px;
+  color: #fff;
+  height: 100px;
+  font-weight: bolder;
+  font-size: xx-large;
+}
+
+.sec5 .parent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1000px;
+}
+
+.sec5 .card {
+  height: 100%;
+  width: 100%;
+  padding-top: 100px;
+  transform-style: preserve-3d;
+  background-position: center center;
+  transition: all 0.5s ease-in-out;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.sec5 .card:hover {
+  background-position: 80% 20%;
+  transform: rotate3d(0.5, 1, 0, 30deg);
+}
+
+.sec5 .content-box {
+  height: auto;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.811);
+  border-radius: 0px 0px 10px 10px;
+  box-shadow: rgba(0, 115, 255, 0.925) 0px 20px 50px -25px;
+  transition: all 0.5s ease-in-out;
+  padding: 50px 25px 25px 25px;
+  transform-style: preserve-3d;
+}
+
+.sec5 .content-box .card-title {
+  color: white;
+  font-size: 20px;
+  font-weight: 800;
+  transition: all 0.5s ease-in-out;
+  transform: translate3d(0px, 0px, 20px);
+}
+
+.sec5 .content-box .card-title:hover {
+  transform: translate3d(0px, 0px, 50px);
+}
+
+.sec5 .content-box .card-content {
+  padding-top: 15px;
+  font-size: 12px;
+  color: #b9b9b9;
+  transition: all 0.5s ease-in-out;
+  transform: translate3d(0px, 0px, 20px);
+}
+
+.sec5 .content-box .card-content:hover {
+  transform: translate3d(0px, 0px, 50px);
+}
+
+.sec5 .content-box .see-more {
+  display: block;
+  font-weight: 900;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #0088ff;
+  padding-top: 15px;
+  transition: all 0.5s ease-in-out;
+  transform: translate3d(0px, 0px, 20px);
+}
+
+.sec5 .content-box .see-more:hover {
+  transform: translate3d(0px, 0px, 50px);
+}
+
+.sec5 .card1 .card {
+  background-image: url('/assets/images/projects/stella.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  object-fit: fill;
+}
+
+.sec5 .card2 .card {
+  background-image: url('/assets/images/projects/biometric voting system.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  object-fit: fill;
+}
+
+.sec5 .card3 .card {
+  background-image: url('/assets/images/projects/personalmanagementsystem.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  object-fit: fill;
+}
+
+.sec5 .card4 .card {
+  background-image: url('/assets/images/projects/QuebeC.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  object-fit: fill;
+}
+
+.sec5 .card5 .card {
+  background-image: url('/assets/images/projects/Stacpad.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  object-fit: fill;
+}
+
+
+@media (max-width: 992px) {
+  .sec5 .col-md-6 {
+    max-width: 50%;
+    flex: 0 0 50%;
+  }
+}
+
+@media (max-width: 768px) {
+  .sec5 .col-sm-12 {
+    max-width: 100%;
+    flex: 0 0 100%;
+  }
+}
+
