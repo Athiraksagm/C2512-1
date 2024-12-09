@@ -1,0 +1,47 @@
+Presenter                               Questioner
+
+1. Venkatesh                            Minhaj
+2. Abel                                 Athira
+3. Sooraj                               Sreya
+4. Minhaj                               Abel
+5. Athira                               Sooraj
+6. Sreya                                Venkatesh
+
+
+Questions I Asked
+
+1.You are tasked with designing a simple "calculator" program using only a switch-case statement and 
+  relational/logical operators. The program should take two integers and a single character operator (+, -, *, /)
+  as input. However, it must also handle an error condition where division by zero is attempted, 
+  and it should display an appropriate error message in that case. Write the program.
+2.You have a table named Orders with the following structure:
+
+                |OrderID	| CustomerID |	OrderDate	| TotalAmount|
+
+    Write a SQL query to find the CustomerID that has placed exactly 3 orders with a total amount greater 
+    than 500 each. Ensure the solution uses aggregate functions and a subquery.
+3.You have a directory named /projects that contains several files and subdirectories. 
+  Manually set the following permissions for the directory and all its contents:
+
+    Owner: Read, write, and execute permissions.
+    Group: Read and execute permissions.
+    Others: Read-only permissions.
+
+  How would you achieve this using Linux commands for a single file and a directory
+4.    class Base {
+      public:
+          virtual void display() { cout << "Base Display" << endl; }
+      };
+      
+      class Derived : public Base {
+      public:
+          void display() override { cout << "Derived Display" << endl; }
+      };
+      
+      int main() {
+          Base *b = new Derived();
+          b->display();
+      }
+
+    What will be the output of the above program and why?
+
