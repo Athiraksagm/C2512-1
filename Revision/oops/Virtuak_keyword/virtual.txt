@@ -1,0 +1,247 @@
+### **Use of `virtual` in C++**
+
+In C++, the `virtual` keyword is used to enable **runtime polymorphism** and to override methods in derived classes. It is primarily associated with inheritance and is applied to functions declared in a base class. By making a function `virtual`, you allow derived classes to provide their own version of the function, which can be invoked dynamically at runtime through a base class pointer or reference.
+
+---
+
+### **Key Concepts**
+
+1. **Dynamic Dispatch**:
+   - When a `virtual` function is called using a base class pointer or reference pointing to a derived class object, the derived class's version of the function is invoked (if overridden). This is known as **runtime polymorphism**.
+
+2. **Overriding**:
+   - A derived class can provide its specific implementation of a `virtual` function, overriding the base class's implementation.
+
+3. **Virtual Table (V-Table)**:
+   - C++ uses a mechanism called the **virtual table** (v-table) to resolve function calls dynamically. Each class with virtual functions has a v-table containing pointers to the functions.
+
+4. **Avoid Code Duplication**:
+   - Virtual functions ensure that the most specific version of a function is executed without requiring manual checks for the object's type.
+
+---
+
+### **Example: Virtual Functions for Dynamic Polymorphism**
+
+```cpp
+#include <iostream>
+using namespace std;
+
+// Base class
+class Shape {
+public:
+    // Virtual function to calculate area
+    virtual void calculateArea() {
+        cout << "Base Shape: No specific area calculation." << endl;
+    }
+
+    // Virtual destructor
+    virtual ~Shape() {
+        cout << "Base Shape destructor called." << endl;
+    }
+};
+
+// Derived class for Circle
+class Circle : public Shape {
+private:
+    double radius;
+
+public:
+    // Constructor
+    Circle(double r) : radius(r) {}
+
+    // Override calculateArea
+    void calculateArea() override {
+        cout << "Circle Area: " << 3.14 * radius * radius << endl;
+    }
+
+    // Destructor
+    ~Circle() {
+        cout << "Circle destructor called." << endl;
+    }
+};
+
+// Derived class for Rectangle
+class Rectangle : public Shape {
+private:
+    double length, width;
+
+public:
+    // Constructor
+    Rectangle(double l, double w) : length(l), width(w) {}
+
+    // Override calculateArea
+    void calculateArea() override {
+        cout << "Rectangle Area: " << length * width << endl;
+    }
+
+    // Destructor
+    ~Rectangle() {
+        cout << "Rectangle destructor called." << endl;
+    }
+};
+
+int main() {
+    // Create objects of derived classes
+    Shape* shape1 = new Circle(5.0);
+    Shape* shape2 = new Rectangle(4.0, 6.0);
+
+    // Call calculateArea using base class pointer
+    cout << "Dynamic Polymorphism:" << endl;
+    shape1->calculateArea();  // Calls Circle's calculateArea
+    shape2->calculateArea();  // Calls Rectangle's calculateArea
+
+    // Clean up
+    delete shape1;  // Proper cleanup ensured due to virtual destructor
+    delete shape2;
+
+    return 0;
+}
+```
+
+**Output**:
+```
+Dynamic Polymorphism:
+Circle Area: 78.5
+Rectangle Area: 24
+Circle destructor called.
+Base Shape destructor called.
+Rectangle destructor called.
+Base Shape destructor called.
+```
+
+---
+
+### **Explanation**
+
+1. **Virtual Function Usage**:
+   - The `calculateArea` function in the base class `Shape` is declared `virtual`.
+   - Both `Circle` and `Rectangle` override the `calculateArea` function with their specific implementations.
+
+2. **Base Class Pointer**:
+   - The base class pointer (`Shape*`) is used to point to derived class objects.
+   - When `shape1->calculateArea()` is called, it dynamically determines the appropriate function to invoke (`Circle::calculateArea`).
+
+3. **Virtual Destructor**:
+   - The base class `Shape` has a `virtual` destructor, ensuring proper cleanup of derived class objects.
+
+---
+
+### **Why Use `virtual`?**
+
+1. **Dynamic Binding**:
+   - Without the `virtual` keyword, C++ uses **static binding**, and the base class version of the function is invoked regardless of the object's actual type.
+
+2. **Extensibility**:
+   - Virtual functions allow for future extensions without modifying the base class.
+
+3. **Polymorphic Behavior**:
+   - Enables behavior where derived classes can modify functionality dynamically at runtime.
+
+---
+
+### **Example Without `virtual`**
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Shape {
+public:
+    void calculateArea() {
+        cout << "Base Shape: No specific area calculation." << endl;
+    }
+};
+
+class Circle : public Shape {
+public:
+    void calculateArea() {
+        cout << "Circle Area: Overridden method." << endl;
+    }
+};
+
+int main() {
+    Shape* shape = new Circle();
+    shape->calculateArea();  // Calls Shape's version due to static binding
+
+    delete shape;
+    return 0;
+}
+```
+
+**Output**:
+```
+Base Shape: No specific area calculation.
+```
+
+- The base class function is called because static binding does not allow overriding behavior at runtime.
+
+---
+
+### **Virtual with Pure Virtual Functions**
+
+A **pure virtual function** is a function declared in the base class with `= 0`, making the class **abstract**. Abstract classes cannot be instantiated directly.
+
+**Example**:
+
+```cpp
+#include <iostream>
+using namespace std;
+
+// Abstract class
+class Shape {
+public:
+    // Pure virtual function
+    virtual void calculateArea() = 0;
+
+    // Virtual destructor
+    virtual ~Shape() {}
+};
+
+class Circle : public Shape {
+private:
+    double radius;
+
+public:
+    Circle(double r) : radius(r) {}
+    void calculateArea() override {
+        cout << "Circle Area: " << 3.14 * radius * radius << endl;
+    }
+};
+
+int main() {
+    // Shape shape; // Error: Cannot instantiate abstract class
+    Shape* shape = new Circle(5.0);
+    shape->calculateArea();  // Calls Circle's calculateArea
+
+    delete shape;
+    return 0;
+}
+```
+
+**Output**:
+```
+Circle Area: 78.5
+```
+
+---
+
+### **Best Practices**
+
+1. **Use Virtual Functions When Needed**:
+   - Apply `virtual` to functions expected to be overridden in derived classes.
+
+2. **Always Provide a Virtual Destructor**:
+   - Ensures proper cleanup of derived class resources.
+
+3. **Avoid Overuse**:
+   - Using virtual functions unnecessarily can increase memory usage due to v-table creation.
+
+4. **Mark Functions with `override`**:
+   - Clearly indicate that a function is intended to override a base class function. This avoids mistakes when signatures do not match.
+
+5. **Use Pure Virtual Functions for Interfaces**:
+   - Use pure virtual functions to define a clear contract for derived classes.
+
+---
+
+The `virtual` keyword is a cornerstone of object-oriented programming in C++, enabling runtime flexibility and extending functionality in a clean and structured manner.

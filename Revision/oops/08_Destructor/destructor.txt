@@ -1,0 +1,249 @@
+### **Destructor in C++**
+
+A **destructor** is a special member function in a class that is called automatically when an object goes out of scope or is explicitly deleted. The primary purpose of a destructor is to free resources allocated to the object, such as memory, file handles, or database connections.
+
+---
+
+### **Characteristics of Destructors**
+1. **Same Name as the Class**: The destructor has the same name as the class, prefixed with a tilde (`~`).
+2. **No Arguments**: Destructors cannot have arguments or return values.
+3. **Called Automatically**: They are invoked automatically when the object is destroyed.
+4. **One per Class**: A class can have only one destructor, and it cannot be overloaded.
+5. **Default Behavior**: If not explicitly defined, the compiler provides a default destructor.
+6. **Used for Cleanup**: Typically used to release dynamically allocated memory or close open resources.
+
+---
+
+### **Syntax**
+```cpp
+~ClassName();
+```
+
+---
+
+### **Example: Basic Destructor**
+```cpp
+#include <iostream>
+using namespace std;
+
+class Car {
+public:
+    // Constructor
+    Car() {
+        cout << "Constructor is called." << endl;
+    }
+
+    // Destructor
+    ~Car() {
+        cout << "Destructor is called." << endl;
+    }
+};
+
+int main() {
+    Car myCar; // Constructor is called here
+    return 0;  // Destructor is called automatically when program ends
+}
+```
+
+**Output**:
+```
+Constructor is called.
+Destructor is called.
+```
+
+---
+
+### **When is a Destructor Called?**
+
+1. **Scope Ends**: When an object goes out of scope.
+2. **Explicit Deletion**: When `delete` is used to destroy a dynamically allocated object.
+3. **Program Termination**: When the program terminates and global or static objects are destroyed.
+
+---
+
+### **Destructor for Dynamically Allocated Memory**
+When a class uses dynamic memory, it is crucial to release it in the destructor to avoid memory leaks.
+
+**Example**:
+```cpp
+#include <iostream>
+using namespace std;
+
+class Car {
+private:
+    int* speed;
+
+public:
+    // Constructor
+    Car(int s) {
+        speed = new int(s); // Dynamically allocate memory
+        cout << "Constructor: Speed allocated." << endl;
+    }
+
+    // Destructor
+    ~Car() {
+        delete speed; // Free memory
+        cout << "Destructor: Speed deallocated." << endl;
+    }
+
+    void display() {
+        cout << "Speed: " << *speed << endl;
+    }
+};
+
+int main() {
+    Car myCar(120); // Constructor is called
+    myCar.display();
+    return 0; // Destructor is called, memory is released
+}
+```
+
+**Output**:
+```
+Constructor: Speed allocated.
+Speed: 120
+Destructor: Speed deallocated.
+```
+
+---
+
+### **Destructor and Arrays**
+If a class object is dynamically allocated as an array, the destructor is called for each object in the array.
+
+**Example**:
+```cpp
+#include <iostream>
+using namespace std;
+
+class Car {
+public:
+    Car() {
+        cout << "Constructor Called" << endl;
+    }
+
+    ~Car() {
+        cout << "Destructor Called" << endl;
+    }
+};
+
+int main() {
+    Car* cars = new Car[3]; // Array of objects
+    delete[] cars;          // Destructor is called for each object
+    return 0;
+}
+```
+
+**Output**:
+```
+Constructor Called
+Constructor Called
+Constructor Called
+Destructor Called
+Destructor Called
+Destructor Called
+```
+
+---
+
+### **Destructor in Inheritance**
+In inheritance, destructors are called in the reverse order of the constructors. The destructor of the derived class is called first, followed by the base class destructor.
+
+**Example**:
+```cpp
+#include <iostream>
+using namespace std;
+
+class Base {
+public:
+    Base() {
+        cout << "Base Constructor" << endl;
+    }
+
+    ~Base() {
+        cout << "Base Destructor" << endl;
+    }
+};
+
+class Derived : public Base {
+public:
+    Derived() {
+        cout << "Derived Constructor" << endl;
+    }
+
+    ~Derived() {
+        cout << "Derived Destructor" << endl;
+    }
+};
+
+int main() {
+    Derived obj;
+    return 0;
+}
+```
+
+**Output**:
+```
+Base Constructor
+Derived Constructor
+Derived Destructor
+Base Destructor
+```
+
+---
+
+### **Destructor for Virtual Functions**
+If a base class destructor is not declared `virtual`, the destructor of a derived class may not be called when deleting an object through a base class pointer. This can cause resource leaks.
+
+**Example**:
+```cpp
+#include <iostream>
+using namespace std;
+
+class Base {
+public:
+    Base() { cout << "Base Constructor" << endl; }
+    virtual ~Base() { cout << "Base Destructor" << endl; }
+};
+
+class Derived : public Base {
+public:
+    Derived() { cout << "Derived Constructor" << endl; }
+    ~Derived() { cout << "Derived Destructor" << endl; }
+};
+
+int main() {
+    Base* obj = new Derived();
+    delete obj; // Properly calls both destructors
+    return 0;
+}
+```
+
+**Output**:
+```
+Base Constructor
+Derived Constructor
+Derived Destructor
+Base Destructor
+```
+
+---
+
+### **Destructor vs Constructor**
+| Feature          | Constructor                             | Destructor                             |
+|------------------|-----------------------------------------|----------------------------------------|
+| **Purpose**      | Initialize an object.                  | Clean up resources.                   |
+| **Invocation**   | Called automatically when an object is created. | Called automatically when an object is destroyed. |
+| **Arguments**    | Can take arguments (parameterized constructors). | Cannot take arguments.                |
+| **Overloading**  | Can be overloaded.                     | Cannot be overloaded.                 |
+| **Name**         | Same as the class name.                | Same as the class name prefixed with `~`. |
+
+---
+
+### **Common Mistakes**
+1. Forgetting to free dynamically allocated memory in the destructor.
+2. Not declaring a destructor as `virtual` in polymorphic base classes.
+3. Calling a destructor explicitly (should be avoided in most cases).
+
+---
+
+Let me know if you'd like further clarification or examples!

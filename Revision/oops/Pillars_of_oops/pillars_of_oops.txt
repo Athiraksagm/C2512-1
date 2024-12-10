@@ -1,0 +1,298 @@
+### **Polymorphism in C++**
+
+**Polymorphism** is one of the fundamental principles of Object-Oriented Programming (OOP). It allows entities like functions, methods, or operators to behave differently based on the context or type of data they are working with.
+
+The term *polymorphism* means "many forms." In C++, it is mainly achieved through **function overloading**, **operator overloading**, and **method overriding**.
+
+---
+
+### **Types of Polymorphism in C++**
+
+Polymorphism in C++ can be broadly categorized into two types:
+
+---
+
+#### 1. **Compile-Time Polymorphism (Static Binding)**
+
+- **Definition**: The method or function to be called is determined at compile time.
+- **Achieved Through**:
+  - **Function Overloading**
+  - **Operator Overloading**
+
+---
+
+##### **a) Function Overloading**
+
+Function overloading allows multiple functions to have the same name but differ in:
+- Number of parameters
+- Type of parameters
+- Order of parameters
+
+**Example:**
+```cpp
+#include <iostream>
+using namespace std;
+
+class Calculator {
+public:
+    int add(int a, int b) {
+        return a + b;
+    }
+
+    double add(double a, double b) {
+        return a + b;
+    }
+
+    int add(int a, int b, int c) {
+        return a + b + c;
+    }
+};
+
+int main() {
+    Calculator calc;
+    cout << calc.add(3, 4) << endl;       // Calls add(int, int)
+    cout << calc.add(3.5, 4.5) << endl;   // Calls add(double, double)
+    cout << calc.add(1, 2, 3) << endl;    // Calls add(int, int, int)
+    return 0;
+}
+```
+
+---
+
+##### **b) Operator Overloading**
+
+Operator overloading allows C++ operators to work with user-defined types (like objects).
+
+**Example:**
+```cpp
+#include <iostream>
+using namespace std;
+
+class Complex {
+public:
+    int real, imag;
+    Complex(int r, int i) : real(r), imag(i) {}
+
+    Complex operator+(const Complex& obj) {
+        return Complex(real + obj.real, imag + obj.imag);
+    }
+};
+
+int main() {
+    Complex c1(3, 2), c2(1, 7);
+    Complex c3 = c1 + c2; // Calls operator+ function
+    cout << "Real: " << c3.real << ", Imaginary: " << c3.imag << endl;
+    return 0;
+}
+```
+
+---
+
+#### 2. **Run-Time Polymorphism (Dynamic Binding)**
+
+- **Definition**: The method to be called is determined at runtime.
+- **Achieved Through**:
+  - **Method Overriding** (using virtual functions).
+
+---
+
+##### **Method Overriding**
+
+- Requires **inheritance**.
+- The base class method is overridden by the derived class method.
+- A **virtual function** in the base class ensures that the method call is resolved dynamically (at runtime).
+
+**Example:**
+```cpp
+#include <iostream>
+using namespace std;
+
+class Animal {
+public:
+    virtual void sound() {
+        cout << "Animal makes a sound" << endl;
+    }
+};
+
+class Dog : public Animal {
+public:
+    void sound() override {
+        cout << "Dog barks" << endl;
+    }
+};
+
+class Cat : public Animal {
+public:
+    void sound() override {
+        cout << "Cat meows" << endl;
+    }
+};
+
+int main() {
+    Animal* animal;
+    Dog dog;
+    Cat cat;
+
+    animal = &dog;
+    animal->sound(); // Outputs: Dog barks
+
+    animal = &cat;
+    animal->sound(); // Outputs: Cat meows
+
+    return 0;
+}
+```
+
+---
+
+### **Key Differences Between Compile-Time and Run-Time Polymorphism**
+
+| Feature                    | Compile-Time Polymorphism               | Run-Time Polymorphism            |
+|----------------------------|------------------------------------------|-----------------------------------|
+| **Binding**                | Static (at compile time)                | Dynamic (at runtime)             |
+| **Achieved Through**       | Function Overloading, Operator Overloading | Virtual Functions, Method Overriding |
+| **Performance**            | Faster, as resolved at compile time     | Slower, as resolved at runtime   |
+| **Inheritance Requirement**| Not required                            | Required                         |
+
+---
+
+### **Summary**
+Polymorphism in C++ enhances flexibility and reusability in code. 
+- **Compile-Time Polymorphism** is used when the method is known at compile time, whereas 
+- **Run-Time Polymorphism** is utilized when dynamic behavior based on the object is desired.
+
+
+### **Composition and Aggregation in OOP**
+
+**Composition** and **Aggregation** are two types of **"has-a" relationships** in Object-Oriented Programming (OOP). They represent how objects are related to each other when one object contains or is associated with another. Both concepts are crucial for creating reusable and modular software systems.
+
+---
+
+### **1. Composition**
+
+#### **Definition**
+- Composition is a **strong "has-a" relationship** where one class owns another class, and the lifecycle of the owned object depends on the owner.
+- If the containing object is destroyed, the contained objects are also destroyed.
+
+#### **Key Characteristics**
+- Strong dependency.
+- The lifespan of the part object is tied to the whole.
+- Represented in UML diagrams as a **filled diamond**.
+
+#### **Example:**
+```cpp
+#include <iostream>
+using namespace std;
+
+class Engine {
+public:
+    Engine() {
+        cout << "Engine created" << endl;
+    }
+    ~Engine() {
+        cout << "Engine destroyed" << endl;
+    }
+};
+
+class Car {
+private:
+    Engine engine; // Engine is a part of Car
+public:
+    Car() {
+        cout << "Car created" << endl;
+    }
+    ~Car() {
+        cout << "Car destroyed" << endl;
+    }
+};
+
+int main() {
+    Car myCar; // When myCar is destroyed, engine is also destroyed
+    return 0;
+}
+```
+
+**Output:**
+```
+Engine created
+Car created
+Car destroyed
+Engine destroyed
+```
+
+---
+
+### **2. Aggregation**
+
+#### **Definition**
+- Aggregation is a **weak "has-a" relationship** where one class contains a reference to another class, but the lifecycle of the contained object is independent of the owner.
+- If the owner object is destroyed, the associated object is not necessarily destroyed.
+
+#### **Key Characteristics**
+- Weak dependency.
+- The lifespan of the part object is independent of the whole.
+- Represented in UML diagrams as an **empty diamond**.
+
+#### **Example:**
+```cpp
+#include <iostream>
+using namespace std;
+
+class Engine {
+public:
+    Engine() {
+        cout << "Engine created" << endl;
+    }
+    ~Engine() {
+        cout << "Engine destroyed" << endl;
+    }
+};
+
+class Car {
+private:
+    Engine* engine; // Engine is associated with Car
+public:
+    Car(Engine* eng) : engine(eng) {
+        cout << "Car created with existing engine" << endl;
+    }
+    ~Car() {
+        cout << "Car destroyed" << endl;
+    }
+};
+
+int main() {
+    Engine* myEngine = new Engine(); // Engine has independent lifespan
+    {
+        Car myCar(myEngine); // Car uses the engine
+    }
+    delete myEngine; // Engine needs to be deleted explicitly
+    return 0;
+}
+```
+
+**Output:**
+```
+Engine created
+Car created with existing engine
+Car destroyed
+Engine destroyed
+```
+
+---
+
+### **Key Differences Between Composition and Aggregation**
+
+| Feature                     | Composition                               | Aggregation                          |
+|-----------------------------|-------------------------------------------|--------------------------------------|
+| **Relationship Type**       | Strong "has-a" relationship               | Weak "has-a" relationship            |
+| **Lifespan Dependency**     | Part object's lifecycle depends on the whole | Part object's lifecycle is independent of the whole |
+| **Ownership**               | The whole owns the part                   | The whole uses or contains a reference to the part |
+| **UML Representation**      | Filled diamond                           | Empty diamond                        |
+
+---
+
+### **When to Use**
+- **Composition**: Use when the part is integral to the whole (e.g., a car has an engine).
+- **Aggregation**: Use when the part can exist independently (e.g., a university has students, but students can exist without the university).
+
+By understanding and applying composition and aggregation effectively, you can design modular, reusable, and maintainable software systems.

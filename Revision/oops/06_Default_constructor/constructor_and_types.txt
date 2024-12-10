@@ -1,0 +1,311 @@
+### **Constructor in C++**
+
+A **constructor** is a special member function in a class that initializes objects of that class. It is called automatically when an object of the class is created. The primary purpose of a constructor is to initialize the data members of a class.
+
+### **Characteristics of Constructors**
+1. **Same Name as Class**: The constructor name must match the class name.
+2. **No Return Type**: Constructors do not have a return type, not even `void`.
+3. **Automatic Invocation**: Called automatically when an object is instantiated.
+4. **Overloadable**: Multiple constructors can be defined in the same class (constructor overloading).
+5. **Default Constructor**: If no constructor is defined, the compiler provides a default constructor.
+
+---
+
+### **Types of Constructors**
+
+C++ supports the following types of constructors:
+
+1. **Default Constructor**
+2. **Parameterized Constructor**
+3. **Copy Constructor**
+4. **Dynamic Constructor**
+5. **Defaulted and Deleted Constructor**
+
+---
+
+#### **1. Default Constructor**
+
+A **default constructor** is a constructor that takes no arguments or has default values for all its parameters. It initializes objects with default values.
+
+**Example**:
+```cpp
+#include <iostream>
+using namespace std;
+
+class Car {
+public:
+    int speed;
+
+    // Default Constructor
+    Car() {
+        speed = 0; // Initialize speed to 0
+        cout << "Default Constructor Called" << endl;
+    }
+
+    void display() {
+        cout << "Speed: " << speed << endl;
+    }
+};
+
+int main() {
+    Car myCar; // Default constructor is called
+    myCar.display();
+
+    return 0;
+}
+```
+
+**Output**:
+```
+Default Constructor Called
+Speed: 0
+```
+
+---
+
+#### **2. Parameterized Constructor**
+
+A **parameterized constructor** is a constructor that takes arguments to initialize an object with specific values.
+
+**Example**:
+```cpp
+#include <iostream>
+using namespace std;
+
+class Car {
+public:
+    int speed;
+
+    // Parameterized Constructor
+    Car(int s) {
+        speed = s;
+        cout << "Parameterized Constructor Called" << endl;
+    }
+
+    void display() {
+        cout << "Speed: " << speed << endl;
+    }
+};
+
+int main() {
+    Car myCar(120); // Parameterized constructor is called
+    myCar.display();
+
+    return 0;
+}
+```
+
+**Output**:
+```
+Parameterized Constructor Called
+Speed: 120
+```
+
+---
+
+#### **3. Copy Constructor**
+
+A **copy constructor** creates a new object as a copy of an existing object. The compiler provides a default copy constructor, but a custom one can be defined.
+
+**Syntax**:
+```cpp
+ClassName(const ClassName &old_obj);
+```
+
+**Example**:
+```cpp
+#include <iostream>
+using namespace std;
+
+class Car {
+public:
+    int speed;
+
+    // Parameterized Constructor
+    Car(int s) {
+        speed = s;
+    }
+
+    // Copy Constructor
+    Car(const Car &oldCar) {
+        speed = oldCar.speed;
+        cout << "Copy Constructor Called" << endl;
+    }
+
+    void display() {
+        cout << "Speed: " << speed << endl;
+    }
+};
+
+int main() {
+    Car car1(100);  // Parameterized constructor is called
+    Car car2 = car1; // Copy constructor is called
+
+    car1.display();
+    car2.display();
+
+    return 0;
+}
+```
+
+**Output**:
+```
+Copy Constructor Called
+Speed: 100
+Speed: 100
+```
+
+---
+
+#### **4. Dynamic Constructor**
+
+A **dynamic constructor** uses dynamic memory allocation to initialize objects. It allocates memory at runtime using `new`.
+
+**Example**:
+```cpp
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+class Car {
+private:
+    char* brand;
+
+public:
+    // Dynamic Constructor
+    Car(const char* b) {
+        brand = new char[strlen(b) + 1]; // Allocate memory dynamically
+        strcpy(brand, b);
+    }
+
+    void display() {
+        cout << "Brand: " << brand << endl;
+    }
+
+    ~Car() {
+        delete[] brand; // Free memory
+        cout << "Destructor Called" << endl;
+    }
+};
+
+int main() {
+    Car myCar("Toyota"); // Dynamic constructor is called
+    myCar.display();
+
+    return 0;
+}
+```
+
+**Output**:
+```
+Brand: Toyota
+Destructor Called
+```
+
+---
+
+#### **5. Defaulted and Deleted Constructors**
+
+- **Defaulted Constructor**: Explicitly instructs the compiler to use the default constructor.
+- **Deleted Constructor**: Prevents the compiler from generating the constructor.
+
+**Example**:
+```cpp
+#include <iostream>
+using namespace std;
+
+class Car {
+public:
+    Car() = default; // Defaulted constructor
+
+    Car(int) = delete; // Deleted constructor
+};
+
+int main() {
+    Car car1;   // Allowed
+    // Car car2(10); // Error: Deleted constructor
+
+    return 0;
+}
+```
+
+**Output**:
+```
+Error (if uncommented): Use of deleted function ‘Car::Car(int)’
+```
+
+---
+
+### **Constructor Overloading**
+
+A class can have multiple constructors with different parameter lists. This is called **constructor overloading**.
+
+**Example**:
+```cpp
+#include <iostream>
+using namespace std;
+
+class Car {
+public:
+    int speed;
+    string brand;
+
+    // Default Constructor
+    Car() {
+        speed = 0;
+        brand = "Unknown";
+    }
+
+    // Parameterized Constructor
+    Car(int s, string b) {
+        speed = s;
+        brand = b;
+    }
+
+    void display() {
+        cout << "Brand: " << brand << ", Speed: " << speed << endl;
+    }
+};
+
+int main() {
+    Car car1; // Default constructor
+    Car car2(150, "Ford"); // Parameterized constructor
+
+    car1.display();
+    car2.display();
+
+    return 0;
+}
+```
+
+**Output**:
+```
+Brand: Unknown, Speed: 0
+Brand: Ford, Speed: 150
+```
+
+---
+
+### **Special Notes**
+
+1. **Destructor vs Constructor**:
+   - A destructor is the opposite of a constructor. It is called when the object goes out of scope or is explicitly deleted.
+   - Syntax: `~ClassName() { }`.
+
+2. **Constructor Chaining**:
+   - Constructor chaining occurs when one constructor calls another constructor within the same class.
+
+**Example**:
+```cpp
+class Car {
+public:
+    Car() {
+        cout << "Default constructor" << endl;
+    }
+    Car(int s) : Car() { // Calls the default constructor
+        cout << "Parameterized constructor" << endl;
+    }
+};
+```
+
+Let me know if you'd like further clarification or examples!

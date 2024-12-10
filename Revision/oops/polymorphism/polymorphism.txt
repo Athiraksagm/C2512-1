@@ -1,0 +1,203 @@
+### **Polymorphism in C++**
+
+Polymorphism is one of the key principles of Object-Oriented Programming (OOP). It allows objects to be treated as instances of their parent class rather than their actual class. The term "polymorphism" means "many forms," enabling the same operation or method to behave differently based on the context.
+
+### **Types of Polymorphism in C++**
+
+Polymorphism in C++ can be broadly categorized into two types:
+1. **Compile-Time Polymorphism (Static Polymorphism)**: Achieved through function overloading and operator overloading.
+2. **Run-Time Polymorphism (Dynamic Polymorphism)**: Achieved through method overriding using inheritance and virtual functions.
+
+---
+
+### **Compile-Time Polymorphism**
+
+Compile-time polymorphism means that the method call is resolved at compile time. The compiler decides which method to invoke based on the method signature. It is achieved using:
+
+1. **Function Overloading**: Functions with the same name but different parameter types or counts.
+2. **Operator Overloading**: Redefining operators to work with user-defined data types.
+
+#### **Function Overloading**
+
+Function overloading allows multiple functions with the same name but different arguments.
+
+**Example**:
+```cpp
+#include <iostream>
+using namespace std;
+
+class Calculator {
+public:
+    // Function to add two integers
+    int add(int a, int b) {
+        return a + b;
+    }
+
+    // Function to add three integers
+    int add(int a, int b, int c) {
+        return a + b + c;
+    }
+
+    // Function to add two doubles
+    double add(double a, double b) {
+        return a + b;
+    }
+};
+
+int main() {
+    Calculator calc;
+
+    cout << "Sum of 2 and 3: " << calc.add(2, 3) << endl;
+    cout << "Sum of 2, 3, and 4: " << calc.add(2, 3, 4) << endl;
+    cout << "Sum of 2.5 and 3.5: " << calc.add(2.5, 3.5) << endl;
+
+    return 0;
+}
+```
+
+**Output**:
+```
+Sum of 2 and 3: 5
+Sum of 2, 3, and 4: 9
+Sum of 2.5 and 3.5: 6
+```
+
+---
+
+#### **Operator Overloading**
+
+Operator overloading allows custom behavior for standard operators with user-defined types.
+
+**Example**:
+```cpp
+#include <iostream>
+using namespace std;
+
+class Complex {
+private:
+    double real, imag;
+
+public:
+    Complex(double r = 0, double i = 0) : real(r), imag(i) {}
+
+    // Overload + operator
+    Complex operator+(const Complex& other) {
+        return Complex(real + other.real, imag + other.imag);
+    }
+
+    void display() {
+        cout << real << " + " << imag << "i" << endl;
+    }
+};
+
+int main() {
+    Complex c1(3, 4), c2(1, 2);
+    Complex c3 = c1 + c2;
+
+    cout << "Sum of complex numbers: ";
+    c3.display();
+
+    return 0;
+}
+```
+
+**Output**:
+```
+Sum of complex numbers: 4 + 6i
+```
+
+---
+
+### **Run-Time Polymorphism**
+
+Run-time polymorphism allows method calls to be resolved at runtime. It is achieved using **inheritance** and **virtual functions**. When a base class pointer or reference is used to call a derived class method, the method that gets called is determined by the actual type of the object, not the type of the pointer or reference.
+
+#### **Method Overriding**
+
+Method overriding occurs when a derived class provides its implementation for a method defined in the base class. The overridden method in the derived class must have the same signature as in the base class.
+
+**Example**:
+```cpp
+#include <iostream>
+using namespace std;
+
+class Animal {
+public:
+    virtual void sound() { // Virtual function
+        cout << "Animal makes a sound" << endl;
+    }
+};
+
+class Dog : public Animal {
+public:
+    void sound() override { // Override base class method
+        cout << "Dog barks" << endl;
+    }
+};
+
+class Cat : public Animal {
+public:
+    void sound() override {
+        cout << "Cat meows" << endl;
+    }
+};
+
+int main() {
+    Animal* animal1 = new Dog();
+    Animal* animal2 = new Cat();
+
+    animal1->sound(); // Calls Dog's sound method
+    animal2->sound(); // Calls Cat's sound method
+
+    delete animal1;
+    delete animal2;
+
+    return 0;
+}
+```
+
+**Output**:
+```
+Dog barks
+Cat meows
+```
+
+---
+
+### **Key Differences Between Overloading and Overriding**
+
+| Aspect              | Overloading                             | Overriding                         |
+|---------------------|-----------------------------------------|-------------------------------------|
+| **Definition**      | Same function name, different signatures within the same class. | Redefining a base class method in the derived class. |
+| **Resolution**      | Resolved at compile time.               | Resolved at runtime.               |
+| **Inheritance**     | Does not require inheritance.           | Requires inheritance.              |
+| **Virtual Function**| Not used.                               | Requires virtual functions.        |
+
+---
+
+### **Advantages of Polymorphism**
+1. **Code Reusability**: A single interface can handle different types of data or behaviors.
+2. **Flexibility**: Enables the implementation of dynamic and flexible systems.
+3. **Scalability**: New behaviors can be added without altering existing code.
+
+---
+
+### **Common Interview Questions**
+1. **What is polymorphism? Explain its types.**
+   - Polymorphism means "many forms," and its types are compile-time polymorphism (function and operator overloading) and run-time polymorphism (method overriding using virtual functions).
+
+2. **What is the difference between overloading and overriding?**
+   - Overloading happens in the same class with different signatures, resolved at compile time. Overriding occurs in inherited classes with the same signature, resolved at runtime.
+
+3. **Why is the `virtual` keyword used in C++?**
+   - The `virtual` keyword is used to enable runtime polymorphism by marking a method for overriding.
+
+4. **What is the role of the `override` keyword?**
+   - The `override` keyword ensures that a method is overriding a base class method. It improves code clarity and catches errors at compile time.
+
+5. **Can constructors be overloaded? Can they be overridden?**
+   - Constructors can be overloaded but cannot be overridden because they are not inherited.
+
+---
+
+Let me know if you'd like further clarification or more examples!
