@@ -1,0 +1,74 @@
+STL in C++ stands for **Standard Template Library**. It is a powerful library that provides a collection of well-structured and reusable template classes and functions, designed to help developers efficiently perform common programming tasks. STL is a vital part of modern C++ programming and simplifies complex tasks like data management, algorithm implementation, and iterator functionality.
+
+### Components of STL
+
+The STL is divided into three main components:
+
+1. **Containers**:
+   - Containers are data structures that store objects.
+   - They come in two types:
+     - **Sequence Containers**: Maintain the order of elements (e.g., `vector`, `deque`, `list`).
+     - **Associative Containers**: Allow fast data retrieval through keys (e.g., `set`, `map`).
+     - **Unordered Containers**: Provide hash-based associative containers (e.g., `unordered_map`, `unordered_set`).
+   - Examples:
+     ```cpp
+     #include <vector>
+     std::vector<int> numbers = {1, 2, 3, 4};
+     ```
+
+2. **Algorithms**:
+   - Algorithms are functions to manipulate or process data in containers.
+   - Examples include searching, sorting, and modifying elements.
+   - Common algorithms:
+     - `sort()`, `binary_search()`, `find()`, `accumulate()`.
+   - Example:
+     ```cpp
+     #include <algorithm>
+     std::sort(numbers.begin(), numbers.end());
+     ```
+
+3. **Iterators**:
+   - Iterators provide a way to access elements in containers.
+   - They work like pointers and help traverse the container.
+   - Common iterators:
+     - `begin()`, `end()`, `rbegin()`, `rend()`.
+   - Example:
+     ```cpp
+     for (auto it = numbers.begin(); it != numbers.end(); ++it) {
+         std::cout << *it << " ";
+     }
+     ```
+
+### Advantages of STL
+- **Generic Programming**: STL is built on templates, allowing code to work with any data type.
+- **Reusability**: Provides ready-to-use components, reducing development time.
+- **Efficiency**: Optimized for performance with common operations.
+- **Consistency**: Follows a uniform interface across different containers.
+
+### Example Program
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+int main() {
+    std::vector<int> nums = {5, 2, 9, 1, 5, 6};
+    
+    // Sort the vector
+    std::sort(nums.begin(), nums.end());
+    
+    // Print the sorted vector
+    for (int n : nums) {
+        std::cout << n << " ";
+    }
+    
+    return 0;
+}
+```
+
+**Output**:
+```
+1 2 5 5 6 9
+```
+
+STL is an essential part of modern C++ programming, making it easier to write robust, efficient, and maintainable code.

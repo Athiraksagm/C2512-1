@@ -1,0 +1,247 @@
+### Inheritance in C++
+
+**Inheritance** is a fundamental concept in Object-Oriented Programming (OOP) that allows one class (called the derived or child class) to inherit the properties and behaviors (members and methods) of another class (called the base or parent class). This promotes code reusability and establishes a relationship between classes.
+
+---
+
+### Types of Inheritance in C++
+
+1. **Single Inheritance**  
+   A derived class inherits from a single base class.  
+   **Example:**
+   ```cpp
+   #include <iostream>
+   using namespace std;
+
+   class Base {
+   public:
+       void display() {
+           cout << "This is Base class" << endl;
+       }
+   };
+
+   class Derived : public Base {
+   };
+
+   int main() {
+       Derived obj;
+       obj.display(); // Accessing Base class method
+       return 0;
+   }
+   ```
+
+---
+
+2. **Multiple Inheritance**  
+   A derived class inherits from more than one base class.  
+   **Example:**
+   ```cpp
+   #include <iostream>
+   using namespace std;
+
+   class Base1 {
+   public:
+       void show() {
+           cout << "Base1 class" << endl;
+       }
+   };
+
+   class Base2 {
+   public:
+       void display() {
+           cout << "Base2 class" << endl;
+       }
+   };
+
+   class Derived : public Base1, public Base2 {
+   };
+
+   int main() {
+       Derived obj;
+       obj.show();
+       obj.display();
+       return 0;
+   }
+   ```
+
+---
+
+3. **Hierarchical Inheritance**  
+   Multiple derived classes inherit from a single base class.  
+   **Example:**
+   ```cpp
+   #include <iostream>
+   using namespace std;
+
+   class Base {
+   public:
+       void display() {
+           cout << "This is Base class" << endl;
+       }
+   };
+
+   class Derived1 : public Base {
+   };
+
+   class Derived2 : public Base {
+   };
+
+   int main() {
+       Derived1 obj1;
+       Derived2 obj2;
+
+       obj1.display();
+       obj2.display();
+       return 0;
+   }
+   ```
+
+---
+
+4. **Multilevel Inheritance**  
+   A class inherits from a derived class, forming a chain.  
+   **Example:**
+   ```cpp
+   #include <iostream>
+   using namespace std;
+
+   class Base {
+   public:
+       void display() {
+           cout << "Base class" << endl;
+       }
+   };
+
+   class Intermediate : public Base {
+   };
+
+   class Derived : public Intermediate {
+   };
+
+   int main() {
+       Derived obj;
+       obj.display();
+       return 0;
+   }
+   ```
+
+---
+
+5. **Hybrid Inheritance**  
+   A combination of two or more types of inheritance (e.g., multiple and multilevel).  
+   **Example:**
+   ```cpp
+   #include <iostream>
+   using namespace std;
+
+   class Base {
+   public:
+       void showBase() {
+           cout << "Base class" << endl;
+       }
+   };
+
+   class Derived1 : public Base {
+   public:
+       void showDerived1() {
+           cout << "Derived1 class" << endl;
+       }
+   };
+
+   class Derived2 : public Base {
+   public:
+       void showDerived2() {
+           cout << "Derived2 class" << endl;
+       }
+   };
+
+   class Final : public Derived1, public Derived2 {
+   };
+
+   int main() {
+       Final obj;
+       // obj.showBase(); // This causes ambiguity as Base is inherited twice.
+       obj.Derived1::showBase(); // Disambiguating by specifying Derived1's Base
+       obj.Derived2::showBase(); // Disambiguating by specifying Derived2's Base
+       return 0;
+   }
+   ```
+
+---
+
+### Access Modifiers in Inheritance
+
+1. **Public Inheritance**  
+   - Public members of the base class remain public in the derived class.  
+   - Protected members of the base class remain protected in the derived class.
+
+2. **Protected Inheritance**  
+   - Public and protected members of the base class become protected in the derived class.
+
+3. **Private Inheritance**  
+   - Public and protected members of the base class become private in the derived class.
+
+**Example:**
+```cpp
+#include <iostream>
+using namespace std;
+
+class Base {
+public:
+    void publicMethod() {
+        cout << "Public method" << endl;
+    }
+protected:
+    void protectedMethod() {
+        cout << "Protected method" << endl;
+    }
+};
+
+class Derived : private Base {
+public:
+    void accessBase() {
+        publicMethod();     // Allowed as publicMethod is inherited as private
+        protectedMethod();  // Allowed as protectedMethod is inherited as private
+    }
+};
+
+int main() {
+    Derived obj;
+    // obj.publicMethod(); // Error: publicMethod is private in Derived
+    obj.accessBase();
+    return 0;
+}
+```
+
+---
+
+### Key Points
+- **Virtual Functions** are used to achieve polymorphism in inheritance.
+- **Constructors** of the base class are not inherited but can be invoked using `Base::Base(args)`.
+- **Ambiguity** in multiple inheritance can be resolved using the scope resolution operator (`::`).
+- **Virtual Base Class** avoids duplication when a base class is inherited multiple times.  
+
+### Virtual Base Class Example
+```cpp
+#include <iostream>
+using namespace std;
+
+class Base {
+public:
+    void display() {
+        cout << "Base class" << endl;
+    }
+};
+
+class Derived1 : virtual public Base {};
+class Derived2 : virtual public Base {};
+class Final : public Derived1, public Derived2 {};
+
+int main() {
+    Final obj;
+    obj.display(); // No ambiguity
+    return 0;
+}
+```
+
+This is a complete guide to inheritance in C++ with examples! Let me know if you need further clarification.

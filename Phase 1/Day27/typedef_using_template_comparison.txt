@@ -1,0 +1,86 @@
+Here's a simple comparison of **template**, **using**, and **typedef** in C++ using a basic stack operation example:
+
+### 1. **Using `template`**  
+Templates are used to define a generic class or function that can work with any data type.
+
+```cpp
+#include <iostream>
+#include <stack>
+
+template <typename T>
+class Stack {
+    std::stack<T> st;
+public:
+    void push(T value) { st.push(value); }
+    void pop() { st.pop(); }
+    T top() { return st.top(); }
+    bool empty() { return st.empty(); }
+};
+
+int main() {
+    Stack<int> intStack;
+    intStack.push(10);
+    intStack.push(20);
+    std::cout << "Top of intStack: " << intStack.top() << std::endl; // Output: 20
+    intStack.pop();
+    std::cout << "Top of intStack after pop: " << intStack.top() << std::endl; // Output: 10
+    return 0;
+}
+```
+
+---
+
+### 2. **Using `using`**  
+`using` is a modern way to create type aliases. It is often used to simplify type declarations.
+
+```cpp
+#include <iostream>
+#include <stack>
+
+using IntStack = std::stack<int>; // Alias for stack<int>
+
+int main() {
+    IntStack myStack;
+    myStack.push(5);
+    myStack.push(15);
+    std::cout << "Top of myStack: " << myStack.top() << std::endl; // Output: 15
+    myStack.pop();
+    std::cout << "Top of myStack after pop: " << myStack.top() << std::endl; // Output: 5
+    return 0;
+}
+```
+
+---
+
+### 3. **Using `typedef`**  
+`typedef` is the older way to create type aliases. It serves a similar purpose as `using` but with different syntax.
+
+```cpp
+#include <iostream>
+#include <stack>
+
+typedef std::stack<int> IntStack; // Alias for stack<int>
+
+int main() {
+    IntStack myStack;
+    myStack.push(50);
+    myStack.push(100);
+    std::cout << "Top of myStack: " << myStack.top() << std::endl; // Output: 100
+    myStack.pop();
+    std::cout << "Top of myStack after pop: " << myStack.top() << std::endl; // Output: 50
+    return 0;
+}
+```
+
+---
+
+### Key Points:
+
+| **Feature**       | **template**                         | **using**                     | **typedef**                  |
+|--------------------|--------------------------------------|--------------------------------|------------------------------|
+| **Purpose**        | Creates generic classes or functions | Creates type aliases (modern) | Creates type aliases (older)|
+| **Use Case**       | Define reusable logic               | Simplify type names           | Simplify type names          |
+| **Flexibility**    | Works with multiple data types       | Works with a single type      | Works with a single type     |
+| **Syntax**         | `template<typename T>`              | `using NewName = OldName;`    | `typedef OldName NewName;`   |
+
+Both `using` and `typedef` are for creating aliases, while templates enable generic programming.

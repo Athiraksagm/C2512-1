@@ -1,0 +1,112 @@
+In C++, declaring `const char* e` in the `catch` block serves the purpose of catching an exception of type `const char*`. Here's a detailed explanation of why we declare this:
+
+---
+
+### **Why `const char*`?**
+
+1. **Exception Type Matching**:
+   - In the example you referred to:
+     ```cpp
+     throw "Division by zero is not allowed";
+     ```
+     The `throw` keyword is used to throw a string literal (`"Division by zero is not allowed"`), which is of type `const char*` in C++.
+   - The `catch` block:
+     ```cpp
+     catch (const char* e)
+     ```
+     is designed to handle exceptions of type `const char*`. It ensures the type of the thrown exception matches the type caught.
+
+2. **`const` for Safety**:
+   - The `const` qualifier ensures the string literal is treated as a read-only value. This prevents accidental modification of the exception message, as modifying string literals is undefined behavior in C++.
+
+3. **Parameter Name (`e`)**:
+   - The name `e` is simply a variable name that holds the caught exception. Inside the `catch` block, you can use `e` to access the message or process the exception.
+
+---
+
+### **What Happens Without `const char*`?**
+
+If the `catch` block does not match the type of the thrown exception, the exception remains unhandled, and the program terminates. For example:
+
+```cpp
+try {
+    throw "An error occurred"; // Throws const char*
+} catch (int e) { // Mismatch: int ≠ const char*
+    cout << "Caught an integer exception: " << e << endl;
+}
+```
+
+Output:
+```
+terminate called after throwing an instance of 'char const*'
+```
+
+---
+
+### **When Do We Use It?**
+
+- Use `const char*` in the `catch` block when the exception being thrown is a string literal or a C-style string.
+- It's a common practice in simple programs or when dealing with lightweight string exceptions.
+
+---
+
+### **Key Takeaway**
+
+`const char* e`:
+- Matches string literal exceptions (`throw "message";`).
+- Ensures safety by marking the string as read-only.
+- Provides a way to access and process the exception message.
+
+Yes, exactly! When you use `throw` with a string literal (e.g., `throw "Error occurred";`), the type of the string literal is `const char*` in C++. Therefore, in the corresponding `catch` block, you need to use `const char*` to properly catch and handle that type of exception.
+
+---
+
+### **Detailed Explanation**
+
+#### **What Happens in `throw`?**
+- When you write:
+  ```cpp
+  throw "Division by zero is not allowed";
+  ```
+  The `"Division by zero is not allowed"` is a string literal, and its type in C++ is `const char*`. This means it is a pointer to a constant character array.
+
+#### **Why Use `const char*` in `catch`?**
+- The `catch` block needs to specify a parameter of the same type as the exception being thrown. Since the type of `"Division by zero is not allowed"` is `const char*`, the `catch` block must declare:
+  ```cpp
+  catch (const char* e) {
+      // Code to handle the exception
+  }
+  ```
+  This ensures that the exception is caught correctly and allows you to handle it.
+
+#### **What Happens if the Types Don't Match?**
+- If the `catch` block doesn't match the type of the thrown exception, the exception won't be caught, and the program will terminate. For example:
+  ```cpp
+  try {
+      throw "An error occurred";
+  } catch (int e) { // Mismatched type (int instead of const char*)
+      cout << "Caught an integer exception: " << e << endl;
+  }
+  ```
+  Output:
+  ```
+  terminate called after throwing an instance of 'char const*'
+  ```
+
+---
+
+### **Why Use `const`?**
+- The `const` qualifier ensures the exception message (string literal) is read-only. Modifying string literals is undefined behavior in C++, so marking it `const` prevents accidental modification.
+
+For example:
+```cpp
+catch (const char* e) {
+    e[0] = 'x'; // ERROR: Cannot modify a const string
+}
+```
+
+---
+
+### **Key Points**
+1. **Type Consistency**: The type of the `catch` block must match the type of the `throw` expression.
+2. **Safety with `const`**: Using `const char*` protects the integrity of the exception message
